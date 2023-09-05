@@ -3,7 +3,7 @@ import { Formik, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { operations, selectors } from 'redux/index';
 
 import { Label, Button, Forma, Input, Error } from './Form.styles';
 
@@ -17,7 +17,7 @@ const schema = object({
 
 const Forms = ({ onSubmit }) => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(selectors.getContacts);
   const state = {
     name: '',
     number: '',
@@ -38,7 +38,7 @@ const Forms = ({ onSubmit }) => {
     }
     // === додавання до списку крнтакту ===
     const updateContacts = { id: nanoid(2), name, number };
-    dispatch(addContact(updateContacts)); //!add
+    dispatch(operations.addContact(updateContacts)); //!add
 
     resetForm();
   };

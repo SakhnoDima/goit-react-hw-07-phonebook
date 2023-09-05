@@ -1,11 +1,9 @@
 import React from 'react';
-
+import { selectors, operations } from 'redux/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
 
 import { RiContactsBook2Fill, RiDeleteBin5Line } from 'react-icons/ri';
 import { Button, Div, Error, Item, List } from './Contacts.styles';
-import { removeContact } from 'redux/contactsSlice';
 
 export const Contacts = () => {
   const dispatch = useDispatch();
@@ -18,8 +16,8 @@ export const Contacts = () => {
     });
   };
 
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectors.getContacts);
+  const filter = useSelector(selectors.getFilter);
   const filteredContacts = filterContacts(contacts, filter);
 
   return (
@@ -31,7 +29,7 @@ export const Contacts = () => {
               <Item key={id}>
                 <RiContactsBook2Fill />
                 {name} : {number}
-                <Button onClick={() => dispatch(removeContact(id))}>
+                <Button onClick={() => dispatch(operations.deleteContact(id))}>
                   <RiDeleteBin5Line />
                 </Button>
               </Item>
