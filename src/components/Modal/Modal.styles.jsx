@@ -8,6 +8,7 @@ export const Backdrop = styled.div`
   height: 100vh;
   background-color: var(--dark-background);
   color: var(--dark-text);
+  overflow: hidden;
 `;
 
 export const ModalBody = styled.div`
@@ -26,4 +27,5 @@ export const ModalBody = styled.div`
   color: var(--dark-text);
   border-radius: ${({ theme }) => theme.spacing(1)};
   box-shadow: ${({ theme }) => theme.shadows.regular};
+  overflow: hidden;
 `;
