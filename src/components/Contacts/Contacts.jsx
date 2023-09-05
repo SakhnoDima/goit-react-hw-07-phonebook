@@ -24,11 +24,11 @@ export const Contacts = () => {
     <Div>
       {contacts.length > 0 ? (
         <List>
-          {filteredContacts.map(({ name, number, id }) => {
+          {filteredContacts.map(({ name, phone, id }) => {
             return (
               <Item key={id}>
                 <RiContactsBook2Fill />
-                {name} : {number}
+                {name} : {phone}
                 <Button onClick={() => dispatch(operations.deleteContact(id))}>
                   <RiDeleteBin5Line />
                 </Button>

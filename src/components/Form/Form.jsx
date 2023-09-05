@@ -37,7 +37,11 @@ const Forms = ({ onSubmit }) => {
       return;
     }
     // === додавання до списку крнтакту ===
-    const updateContacts = { id: nanoid(2), name, number };
+
+    const updateContacts = {
+      name: name,
+      phone: number,
+    };
     dispatch(operations.addContact(updateContacts)); //!add
 
     resetForm();

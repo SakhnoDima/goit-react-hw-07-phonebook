@@ -11,6 +11,9 @@ export const Backdrop = styled.div`
 `;
 
 export const ModalBody = styled.div`
+  max-height: 660px;
+  overflow: auto;
+
   position: absolute;
   top: 50%;
   left: 50%;
