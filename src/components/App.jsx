@@ -36,7 +36,9 @@ export const App = () => {
       </Header>
       <Title style={{ textAlign: 'center' }}>Phonebook</Title>
       <Forms />
-      {isLoading && !error && <b>Request in progress...</b>}
+      {isLoading && !error && (
+        <p style={{ textAlign: 'center' }}>Request in progress...</p>
+      )}
       <Button type="button" onClick={modalToggle}>
         All Cntacts
       </Button>
