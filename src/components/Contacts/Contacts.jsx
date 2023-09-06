@@ -1,13 +1,11 @@
 import React from 'react';
-import { selectors, operations } from 'redux/index';
-import { useDispatch, useSelector } from 'react-redux';
+import { selectors } from 'redux/index';
+import { useSelector } from 'react-redux';
 
-import { RiContactsBook2Fill, RiDeleteBin5Line } from 'react-icons/ri';
-import { Button, Div, Error, Item, List } from './Contacts.styles';
+import { Div, Error, List } from './Contacts.styles';
+import Contact from 'components/Contact/Contact';
 
 export const Contacts = () => {
-  const dispatch = useDispatch();
-
   // === фільтруємо по імені ===
   const filterContacts = (contacts, filter) => {
     const normalizeFilter = filter.toLowerCase();
@@ -24,16 +22,8 @@ export const Contacts = () => {
     <Div>
       {contacts.length > 0 ? (
         <List>
-          {filteredContacts.map(({ name, phone, id }) => {
-            return (
-              <Item key={id}>
-                <RiContactsBook2Fill />
-                {name} : {phone}
-                <Button onClick={() => dispatch(operations.deleteContact(id))}>
-                  <RiDeleteBin5Line />
-                </Button>
-              </Item>
-            );
+          {filteredContacts.map(contact => {
+            return <Contact key={contact.id} {...contact} />;
           })}
         </List>
       ) : (

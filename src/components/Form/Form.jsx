@@ -1,11 +1,13 @@
 import { nanoid } from 'nanoid';
 import { Formik, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
-
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { operations, selectors } from 'redux/index';
 
 import { Label, Button, Forma, Input, Error } from './Form.styles';
+import { Spinner } from 'components/Spinner/Spinner';
+import { KEY_LS } from 'components/helpers/themtoggle';
 
 const schema = object({
   name: string().required('Name is required!'),
@@ -16,6 +18,9 @@ const schema = object({
 });
 
 const Forms = ({ onSubmit }) => {
+  // const isLoading = useSelector(selectors.getIsLoading);
+  // const error = useSelector(selectors.getError);
+  const loading = useSelector(selectors.getLoadState);
   const dispatch = useDispatch();
   const contacts = useSelector(selectors.getContacts);
   const state = {
@@ -24,6 +29,7 @@ const Forms = ({ onSubmit }) => {
   };
   const idNameForm = nanoid();
   const idTelForm = nanoid();
+  const theme = localStorage.getItem(KEY_LS);
 
   // === сабміт форми ===
   const handleSubmit = (values, { resetForm }) => {
@@ -43,7 +49,16 @@ const Forms = ({ onSubmit }) => {
       phone: number,
     };
     dispatch(operations.addContact(updateContacts)); //!add
-
+    toast.success(`${name} was added to your contacts`, {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: `${theme === 'theme-dark' ? 'light' : 'dark'}`,
+    });
     resetForm();
   };
 
@@ -75,9 +90,8 @@ const Forms = ({ onSubmit }) => {
             />
             <ErrorMessage component={Error} name="number" />
           </Label>
-
-          <Button type="submit" title={'Add contact'}>
-            Add contact
+          <Button disabled={loading} type="submit" title={'Add contact'}>
+            {loading ? <Spinner /> : 'Add contact'}
           </Button>
         </Forma>
       </Formik>
