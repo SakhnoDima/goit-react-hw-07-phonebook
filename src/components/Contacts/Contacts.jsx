@@ -6,17 +6,8 @@ import { Div, Error, List } from './Contacts.styles';
 import Contact from 'components/Contact/Contact';
 
 export const Contacts = () => {
-  // === фільтруємо по імені ===
-  const filterContacts = (contacts, filter) => {
-    const normalizeFilter = filter.toLowerCase();
-    return contacts.filter(({ name }) => {
-      return name.toLowerCase().includes(normalizeFilter);
-    });
-  };
-
   const contacts = useSelector(selectors.getContacts);
-  const filter = useSelector(selectors.getFilter);
-  const filteredContacts = filterContacts(contacts, filter);
+  const filteredContacts = useSelector(selectors.getFilterContacts);
 
   return (
     <Div>

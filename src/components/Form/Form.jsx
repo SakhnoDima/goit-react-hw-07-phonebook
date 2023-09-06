@@ -52,13 +52,7 @@ const Forms = ({ onSubmit }) => {
     const theme = localStorage.getItem(KEY_LS);
 
     toast.success(`${name} was added to your contacts`, {
-      position: 'top-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
       theme: `${theme === 'theme-dark' ? 'dark' : 'light'}`,
     });
     resetForm();

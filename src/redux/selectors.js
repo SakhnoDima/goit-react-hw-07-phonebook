@@ -16,3 +16,13 @@ export const getLoadState = createSelector(
     } else return false;
   }
 );
+
+export const getFilterContacts = createSelector(
+  [getContacts, getFilter],
+  (items, value) => {
+    const normalizeFilter = value.toLowerCase();
+    return items.filter(({ name }) => {
+      return name.toLowerCase().includes(normalizeFilter);
+    });
+  }
+);
