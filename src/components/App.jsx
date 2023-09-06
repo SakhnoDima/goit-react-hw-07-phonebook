@@ -1,6 +1,5 @@
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,16 +11,9 @@ import { ThemeButton } from './ThemButtton/ThemeButton';
 import TotalContacts from './TotalContacts/TotalContacts';
 
 import { keepTheme } from './helpers/themtoggle';
-import { operations } from '../redux/index';
 
 export const App = () => {
   const [showModal, setModalShow] = useState(false);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(operations.fetchContacts());
-  }, [dispatch]);
 
   useEffect(() => {
     keepTheme();

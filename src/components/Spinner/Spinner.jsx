@@ -4,7 +4,7 @@ import { RotatingLines } from 'react-loader-spinner';
 export const Spinner = () => {
   return (
     <RotatingLines
-      strokeColor="grey"
+      strokeColor="red"
       strokeWidth="5"
       animationDuration="0.75"
       width="16"
