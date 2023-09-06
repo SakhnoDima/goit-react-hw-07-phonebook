@@ -7,7 +7,7 @@ import Contact from 'components/Contact/Contact';
 
 export const Contacts = () => {
   const filteredContacts = useSelector(selectors.getFilterContacts);
-  console.log(filteredContacts);
+
   return (
     <Div>
       {filteredContacts.length > 0 ? (
