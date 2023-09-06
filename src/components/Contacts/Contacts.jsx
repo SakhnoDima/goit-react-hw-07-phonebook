@@ -6,7 +6,6 @@ import { Div, Error, List } from './Contacts.styles';
 import Contact from 'components/Contact/Contact';
 
 export const Contacts = () => {
-  const contacts = useSelector(selectors.getContacts);
   const filteredContacts = useSelector(selectors.getFilterContacts);
   console.log(filteredContacts);
   return (
