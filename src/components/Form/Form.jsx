@@ -29,7 +29,6 @@ const Forms = ({ onSubmit }) => {
   };
   const idNameForm = nanoid();
   const idTelForm = nanoid();
-  const theme = localStorage.getItem(KEY_LS);
 
   // === сабміт форми ===
   const handleSubmit = (values, { resetForm }) => {
@@ -49,6 +48,9 @@ const Forms = ({ onSubmit }) => {
       phone: number,
     };
     dispatch(operations.addContact(updateContacts)); //!add
+
+    const theme = localStorage.getItem(KEY_LS);
+
     toast.success(`${name} was added to your contacts`, {
       position: 'top-right',
       autoClose: 2000,
@@ -57,7 +59,7 @@ const Forms = ({ onSubmit }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: `${theme === 'theme-dark' ? 'light' : 'dark'}`,
+      theme: `${theme === 'theme-dark' ? 'dark' : 'light'}`,
     });
     resetForm();
   };
