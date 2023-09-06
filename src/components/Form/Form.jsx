@@ -2,9 +2,8 @@ import { nanoid } from 'nanoid';
 import { Formik, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
 import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { operations, selectors } from 'redux/index';
 
+import { contactsApi } from '../../redux/index';
 import { Label, Button, Forma, Input, Error } from './Form.styles';
 import { Spinner } from 'components/Spinner/Spinner';
 import { KEY_LS } from 'components/helpers/themtoggle';
@@ -17,12 +16,10 @@ const schema = object({
     .max(13, 'Too Long!'),
 });
 
-const Forms = ({ onSubmit }) => {
-  // const isLoading = useSelector(selectors.getIsLoading);
-  // const error = useSelector(selectors.getError);
-  const loading = useSelector(selectors.getLoadState);
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectors.getContacts);
+const Forms = () => {
+  const { data, isFetching } = contactsApi.useGetAllContactsQuery();
+  const [addContact] = contactsApi.useAddContactMutation();
+
   const state = {
     name: '',
     number: '',
@@ -34,7 +31,7 @@ const Forms = ({ onSubmit }) => {
   const handleSubmit = (values, { resetForm }) => {
     const { name, number } = values;
     // ===  перевірка на вже існуюче ім'я ===
-    const includeName = contacts.some(
+    const includeName = data.some(
       contact => contact.name.toLowerCase().trim() === name.toLowerCase().trim()
     );
     if (includeName) {
@@ -47,7 +44,7 @@ const Forms = ({ onSubmit }) => {
       name: name,
       phone: number,
     };
-    dispatch(operations.addContact(updateContacts)); //!add
+    addContact(updateContacts); //!add
 
     const theme = localStorage.getItem(KEY_LS);
 
@@ -86,8 +83,8 @@ const Forms = ({ onSubmit }) => {
             />
             <ErrorMessage component={Error} name="number" />
           </Label>
-          <Button disabled={loading} type="submit" title={'Add contact'}>
-            {loading ? <Spinner /> : 'Add contact'}
+          <Button disabled={isFetching} type="submit" title={'Add contact'}>
+            {isFetching ? <Spinner /> : 'Add contact'}
           </Button>
         </Forma>
       </Formik>

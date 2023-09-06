@@ -1,22 +1,32 @@
 import React from 'react';
-import { selectors, operations } from 'redux/index';
 import { RiContactsBook2Fill, RiDeleteBin5Line } from 'react-icons/ri';
-import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { Button, Item } from './Contact.styles';
+import { Spinner } from 'components/Spinner/Spinner';
+import { contactsApi } from 'redux/index';
+import { KEY_LS } from 'components/helpers/themtoggle';
 
 const Contact = ({ id, name, phone }) => {
-  const dispatch = useDispatch();
-  const loading = useSelector(selectors.getLoadState);
+  const [removeContact, { isLoading: isDelitig }] =
+    contactsApi.useRemoveContactMutation();
+
+  const handleOnClick = (id, name) => {
+    removeContact(id);
+    const theme = localStorage.getItem(KEY_LS);
+
+    toast.success(`${name} was deleted from your contacts`, {
+      autoClose: 2000,
+      theme: `${theme === 'theme-dark' ? 'dark' : 'light'}`,
+    });
+  };
+
   return (
     <>
       <Item>
         <RiContactsBook2Fill />
         {name} : {phone}
-        <Button
-          disabled={loading}
-          onClick={() => dispatch(operations.deleteContact(id))}
-        >
-          <RiDeleteBin5Line />
+        <Button disabled={isDelitig} onClick={() => handleOnClick(id, name)}>
+          {isDelitig ? <Spinner /> : <RiDeleteBin5Line />}
         </Button>
       </Item>
     </>

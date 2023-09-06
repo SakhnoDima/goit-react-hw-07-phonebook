@@ -4,9 +4,20 @@ import { useSelector } from 'react-redux';
 
 import { Div, Error, List } from './Contacts.styles';
 import Contact from 'components/Contact/Contact';
+import { useGetAllContactsQuery } from 'redux/contactsApi';
 
 export const Contacts = () => {
-  const filteredContacts = useSelector(selectors.getFilterContacts);
+  const { data } = useGetAllContactsQuery();
+  const filterValue = useSelector(selectors.getFilter);
+
+  const getFilterContacts = () => {
+    const normalizeFilter = filterValue.toLowerCase();
+    return data.filter(({ name }) => {
+      return name.toLowerCase().includes(normalizeFilter);
+    });
+  };
+
+  const filteredContacts = getFilterContacts();
 
   return (
     <Div>

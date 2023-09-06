@@ -1,15 +1,13 @@
 import React from 'react';
 import { Total, TotalBox, TotalIcon } from './TotalContacts.style';
-import { useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { contactsApi } from '../../redux/index';
 
 const TotalContacts = () => {
-  const contacts = useSelector(getContacts);
-
+  const { data } = contactsApi.useGetAllContactsQuery();
   return (
     <TotalBox>
       <TotalIcon />
-      <Total>{contacts.length}</Total>
+      <Total>{data?.length}</Total>
     </TotalBox>
   );
 };
