@@ -8,10 +8,10 @@ import Contact from 'components/Contact/Contact';
 export const Contacts = () => {
   const contacts = useSelector(selectors.getContacts);
   const filteredContacts = useSelector(selectors.getFilterContacts);
-
+  console.log(filteredContacts);
   return (
     <Div>
-      {contacts.length > 0 ? (
+      {filteredContacts.length > 0 ? (
         <List>
           {filteredContacts.map(contact => {
             return <Contact key={contact.id} {...contact} />;
